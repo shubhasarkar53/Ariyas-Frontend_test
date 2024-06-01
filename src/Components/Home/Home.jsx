@@ -30,18 +30,18 @@ const Home = () => {
   //   dispatch(getProducts());
   // }, []);
 
-  useEffect(() => {
-    dispatch(
-      getProducts(
-        category === "All" ? "" : category,
-      )
-    );
+  // useEffect(() => {
+  //   dispatch(
+  //     getProducts(
+  //       category === "All" ? "" : category,
+  //     )
+  //   );
 
-    if (error) {
-      console.log("error::",error);
-      dispatch(clearError());
-    }
-  }, [dispatch,error]);
+  //   if (error) {
+  //     console.log("error::",error);
+  //     dispatch(clearError());
+  //   }
+  // }, [dispatch,error]);
 
 
 
@@ -86,15 +86,15 @@ const Home = () => {
   
 
 
-  const groupProductsByCategory = (products) => {
-    return products.reduce((acc, product) => {
-      if (!acc[product.category]) {
-        acc[product.category] = [];
-      }
-      acc[product.category].push(product);
-      return acc;
-    }, {});
-  };
+  // const groupProductsByCategory = (products) => {
+  //   return products.reduce((acc, product) => {
+  //     if (!acc[product.category]) {
+  //       acc[product.category] = [];
+  //     }
+  //     acc[product.category].push(product);
+  //     return acc;
+  //   }, {});
+  // };
 
   // const groupedProducts = groupProductsByCategory(products);
 
