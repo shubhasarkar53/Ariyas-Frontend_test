@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./Home.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductswp } from "../../Redux/Actions/productAction";
+// import { getProductswp } from "../../Redux/Actions/productAction";
 import Loader from "../Loader/Loader";
 import ImageCarousel from "../Carousel/Carousel";
 import Meta from "../../Meta";
@@ -18,6 +18,7 @@ import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 
 import "./HomeResponsive.scss";
+import { getProducts } from "../../Redux/Actions/productAction";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,25 @@ const Home = () => {
     (state) => state.products
   );
 
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, []);
+
   useEffect(() => {
-    dispatch(getProductswp());
-  }, [dispatch]);
+    dispatch(
+      getProducts(
+        category === "All" ? "" : category,
+      )
+    );
+
+    if (error) {
+      console.log("error::",error);
+      dispatch(clearError());
+    }
+  }, [dispatch,error]);
+
+
+
 
   // Images, titles and captions for carousel
   const images = [
@@ -65,6 +82,10 @@ const Home = () => {
   };
 
   // Function to group products by category
+
+  
+
+
   const groupProductsByCategory = (products) => {
     return products.reduce((acc, product) => {
       if (!acc[product.category]) {
@@ -75,7 +96,7 @@ const Home = () => {
     }, {});
   };
 
-  const groupedProducts = groupProductsByCategory(products);
+  // const groupedProducts = groupProductsByCategory(products);
 
   return (
     <Fragment>
@@ -146,7 +167,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="product-row-container">
+          {/* <div className="product-row-container">
             {Object.keys(groupedProducts).map((category, index) => (
               <div className="row" key={index}>
                 <h1>{category} Item&apos;s</h1>
@@ -157,7 +178,7 @@ const Home = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="explore-more-section">
             <div className="explore">
