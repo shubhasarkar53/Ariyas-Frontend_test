@@ -114,11 +114,12 @@ export const verifyEmail = (userId, otp) => async (dispatch) => {
 };
 
 //Load user action
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("/api/v1/me");
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/me`);
     // console.log("Load user data", data);
 
     dispatch({
