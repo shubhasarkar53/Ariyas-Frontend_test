@@ -26,22 +26,22 @@ const Home = () => {
     (state) => state.products
   );
 
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, []);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
-  // useEffect(() => {
-  //   dispatch(
-  //     getProducts(
-  //       category === "All" ? "" : category,
-  //     )
-  //   );
+  useEffect(() => {
+    dispatch(
+      getProducts(
+        category === "All" ? "" : category,
+      )
+    );
 
-  //   if (error) {
-  //     console.log("error::",error);
-  //     dispatch(clearError());
-  //   }
-  // }, [dispatch,error]);
+    if (error) {
+      console.log("error::",error);
+      dispatch(clearError());
+    }
+  }, [dispatch,error]);
 
 
 
@@ -86,17 +86,17 @@ const Home = () => {
   
 
 
-  // const groupProductsByCategory = (products) => {
-  //   return products.reduce((acc, product) => {
-  //     if (!acc[product.category]) {
-  //       acc[product.category] = [];
-  //     }
-  //     acc[product.category].push(product);
-  //     return acc;
-  //   }, {});
-  // };
+  const groupProductsByCategory = (products) => {
+    return products.reduce((acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = [];
+      }
+      acc[product.category].push(product);
+      return acc;
+    }, {});
+  };
 
-  // const groupedProducts = groupProductsByCategory(products);
+  const groupedProducts = groupProductsByCategory(products);
 
   return (
     <Fragment>
@@ -167,7 +167,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* <div className="product-row-container">
+          <div className="product-row-container">
             {Object.keys(groupedProducts).map((category, index) => (
               <div className="row" key={index}>
                 <h1>{category} Item&apos;s</h1>
@@ -178,7 +178,7 @@ const Home = () => {
                 </div>
               </div>
             ))}
-          </div> */}
+          </div> 
 
           <div className="explore-more-section">
             <div className="explore">
