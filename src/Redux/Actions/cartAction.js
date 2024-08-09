@@ -3,25 +3,29 @@ import { ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO, CLEAR_CART } from '.
 import axios from 'axios';
 
 
-//Add to cart 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+// Add to cart 
 export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
+  const link = `${API_BASE_URL}/api/v1/product/${id}`;
+  const { data } = await axios.get(link);
 
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+  dispatch({
+    type: ADD_TO_CART,
+    payload: {
+      product: data.product._id,
+      name: data.product.name,
+      price: data.product.price,
+      image: data.product.image[0].url,
+      stock: data.product.stock,
+      quantity,
+      seller: data.product.user,
+    },
+  });
 
-    dispatch({
-        type: ADD_TO_CART,
-        payload: {
-            product: data.product._id,
-            name: data.product.name,
-            price: data.product.price,
-            image: data.product.image[0].url,
-            stock: data.product.stock,
-            quantity,
-            seller:data.product.user
-        },
-    });
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
+
 
 //Remove from cart
 export const removeItemsFromCart = (id) => async (dispatch, getState) => {
