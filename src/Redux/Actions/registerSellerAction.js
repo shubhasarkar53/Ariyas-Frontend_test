@@ -11,6 +11,7 @@ export const registerSeller = (formData) => async (dispatch) => {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      withCredentials: true, // Include this if authentication is needed
     };
 
     const link = `${API_BASE_URL}/api/v1/register-seller`;

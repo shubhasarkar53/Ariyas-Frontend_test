@@ -138,7 +138,12 @@ export const searchProducts = (keyword) => async (dispatch) => {
 };
 
 export const createProductAction = (productData) => async (dispatch) => {
-  const config = { headers: { "Content-Type": "multipart/form-data" } };
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    withCredentials: true, // Include this if authentication is needed
+  };
   try {
     dispatch({ type: CREATE_PRODUCT_REQUEST });
 
@@ -159,8 +164,10 @@ export const editCreatedProduct = (productId, updatedProductData) => async (disp
 
   try {
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
-      withCredentials: true,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true, // Include this if authentication is needed
     };
 
     const link = `${API_BASE_URL}/api/v1/product/${productId}`;

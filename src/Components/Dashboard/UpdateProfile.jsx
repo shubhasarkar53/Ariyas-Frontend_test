@@ -26,7 +26,7 @@ const UpdateProfile = ({ history }) => {
     fullName: "",
     phone: "",
     dob: "",
-    gender: "",
+    gender: "Others",
   });
   const { fullName, phone, dob, gender } = formData;
   const [avatar, setAvatar] = useState("");

@@ -91,19 +91,19 @@ const ImageCarousel = ({ images }) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 2500,
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 600000,
-    pauseOnHover: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
     cssEase: 'linear',
     fade: true,
     lazyLoad: true,
     arrows: true,
     dotsClass: 'slick-dots',
     pauseOnDotsHover: true,
-    pauseOnFocus: true,
+    pauseOnFocus: false,
   };
 
 

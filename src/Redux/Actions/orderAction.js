@@ -9,69 +9,23 @@ import axios from "axios"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const createOrder = (order) => async (dispatch, getState) => {
+// Create Order
+export const createOrder = (order) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
 
     const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,  // Include credentials
     };
 
-    const link = `${API_BASE_URL}/api/v1/order/new`;
-    const { data } = await axios.post(link, order, config);
+    const { data } = await axios.post(`${API_BASE_URL}/api/v1/order/new`, order, config);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: CREATE_ORDER_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
-    });
-  }
-};
-
-// Clear Errors
-export const clearErrors = () => async (dispatch) => {
-  dispatch({ type: CLEAR_ERRORS });
-};
-
-// Get Orders by user ID
-export const listOrdersByUserID = () => async (dispatch) => {
-  try {
-    dispatch({ type: CREATE_ORDER_REQUEST });
-
-    const link = `${API_BASE_URL}/api/v1/orders/me`;
-    const { data } = await axios.get(link);
-
-    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: CREATE_ORDER_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
-    });
-  }
-};
-
-// Get All Orders
-export const listAllOrders = () => async (dispatch) => {
-  try {
-    dispatch({ type: CREATE_ORDER_REQUEST });
-
-    const link = `${API_BASE_URL}/api/v1/orders`;
-    const { data } = await axios.get(link);
-
-    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: CREATE_ORDER_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
+      payload: error.response.data.message || error.message,
     });
   }
 };
@@ -81,16 +35,15 @@ export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDERS_REQUEST });
 
-    const link = `${API_BASE_URL}/api/v1/orders/me`;
-    const { data } = await axios.get(link);
+    const config = { withCredentials: true };  // Include credentials
+
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/orders/me`, config);
 
     dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
     dispatch({
       type: MY_ORDERS_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
+      payload: error.response.data.message || error.message,
     });
   }
 };
@@ -100,19 +53,56 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    const link = `${API_BASE_URL}/api/v1/order/${id}`;
-    const { data } = await axios.get(link);
+    const config = { withCredentials: true };  // Include credentials
 
-    dispatch({
-      type: ORDER_DETAILS_SUCCESS,
-      payload: data.order,
-    });
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/order/${id}`, config);
+
+    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
+      payload: error.response.data.message || error.message,
     });
   }
+};
+
+// Get Orders by User ID
+export const listOrdersByUserID = () => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_ORDER_REQUEST });
+
+    const config = { withCredentials: true };  // Include credentials
+
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/orders/me`, config);
+
+    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: CREATE_ORDER_FAIL,
+      payload: error.response.data.message || error.message,
+    });
+  }
+};
+
+// Get All Orders
+export const listAllOrders = () => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_ORDER_REQUEST });
+
+    const config = { withCredentials: true };  // Include credentials
+
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/orders`, config);
+
+    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: CREATE_ORDER_FAIL,
+      payload: error.response.data.message || error.message,
+    });
+  }
+};
+
+// Clear Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };
